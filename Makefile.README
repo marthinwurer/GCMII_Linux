@@ -1,0 +1,107 @@
+
+Makefile.README
+
+We have a couple makefiles for a couple different target platforms and
+a couple different compilers. This document attempts to provide an
+intro to building the GISS Model II. For more information please
+contact Ken Mankoff (mankoff@giss.nasa.gov)
+
+Current supported builds are:
+ * Windows (XP, Vista)
+ * Mac PPC
+ * Mac Intel
+
+=== Makefile ===
+
+This is the top level makefile for Mac systems. Eventually, perhaps,
+it'll detect the current OS and desired target OS and do everything
+for you. Right now it serves the function of modifying README.f.in to
+include PRINT statements about the current date and SVN version # of
+the model.
+
+
+=== Windows ===
+
+On Windows development is done with Absoft 8.2. I have a Parallels
+Windows XP image for EdGCM development. It would be easiest to use the
+exact same environment and I can clone this image for you.
+
+Assuming Absoft 8.2 is installed in C:\Absoft82 ModelII can be built
+as follows:
+
+* Start Menu > Run > "cmd" (not "command")
+* Run c:\absoft82\bin\absvars.bat or make sure the following 
+  environment vars are set:
+  ABSOFT=C:\Absoft82
+  PATH=C:\Absoft82\BIN;%PATH%
+  LIB=C:\Absoft82\LIB;%LIB%
+  INCLUDE=C:\Absoft82\CINCLUDE;%INCLUDE%
+
+Set up a share folder between Mac and Windows. This can be done easily
+through Parallels, or at the DOS prompt:
+> net use y: \\.psf\GISS\GCM\modelII\trunk
+
+Navigate to the build directory:
+> y:
+> cd GCM\modelII\trunk
+
+Build the model:
+> amake -f Makefile.win
+
+The result should be a file called "model.exe". If not, make sure you
+can build correctly in OS X. Debug. Email for help.
+
+Makefile.win.gui is the GUI Makefile for using with the Absoft 8.2
+IDE. I prefer the command line.
+
+
+=== Makefile.Mac.PPC ===
+
+Your environment should look like this (Customize for the name and
+location of your Absoft install. I am using Absoft 9.2 on an Intel
+MacBook 
+
+export SDK="/Developer/SDKs/MacOSX10.4.0.sdk"
+export ABSOFT=/Users/mankoff/local/Applications/Absoft.ppc
+export ABSOFT_AS="as -arch ppc"
+export ABSOFT_LINKER="c++ -isysroot ${SDK} -Wl,-syslibroot,${SDK} -arch ppc
+export PATH=$ABSOFT/bin:$PATH
+export MANPATH=$ABSOFT/man:$MANPATH
+export MACOSX_DEPLOYMENT_TARGET=10.4
+export COMPILER=Absoft
+
+Then:
+% make -f Makefile.Mac.PPC
+
+should build "modelII_ppc.exe" that will run on both Mac Intel and Mac
+PPC. On Mac Intel it runs in Rosetta, so it runs very slowly.
+
+
+=== Makefile.ifort ===
+
+We are using the Intel ifort 10.1 compiler for Intel native builds on
+OS X. Your environment should be set like so:
+
+source /opt/intel/fc/10.1.008/bin/ifortvars.sh
+export COMPILER=Intel
+
+Then:
+% make -f Makefile.ifort
+
+should build "modelII_intel.exe" that will run on Mac Intel native, and
+not on Mac PPC.
+
+=== Makefile.gfortran ===
+
+This is a second Mac Intel native build. We use ifort because it is
+faster, but I provide this Makefile and try to keep it up-to-date so
+that the community can build their own Model II without needing to
+purchase a compiler.
+
+% gfortran -v
+gcc version 4.2.3
+
+I think this version of GCC comes with installing the iPhone SDK, then
+copying "gcc_select" from a Mac that has it (10.4? PPC?) and then a
+"sudo gcc_select 4.2"
+

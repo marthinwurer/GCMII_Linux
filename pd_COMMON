@@ -1,0 +1,3 @@
+      character*80 clabel
+      equivalence (clabel,xlabel)
+      common/pd_com/iprint_pd(12),iu_pd(12),iform_pd(12),iNetcdf_pd(12)

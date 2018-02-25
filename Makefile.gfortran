@@ -1,0 +1,34 @@
+
+F77COMPILER= gfortran
+LINKER =    gfortran
+F77_FLAGS =   -c -s -fconvert=big-endian -fno-automatic -ff2c -O2
+# ifort  -O2   -convert big_endian       -IPF_fma  -save  -zero  -ftz  -assume 
+# dummy_aliases  -align none -mp      -openmp   -c L23_DAILY_MClim_CH4mths.f  
+
+LIBS = -L/Developer/SDKs/MacOSX10.5.sdk/usr/lib
+TARGET=      model.command
+
+SRCS = RANVAX.f \
+	setpath.f \
+	RFRCmacDBL.f \
+	UTILmacDBL.f \
+	Mjal2cpdC9.f \
+	Pjal0C9.f \
+	FORCINGSjalC9.f \
+	FFT36macDBL.f \
+	R83ZAmacDBL.f \
+	DB11pdC9.f \
+	README.f
+OBJS = $(SRCS:.f=.o)           # all objects
+
+%.o: %.f
+	$(F77COMPILER) -o $@ $(F77_FLAGS) $<
+
+$(TARGET): $(OBJS)
+	$(LINKER) $(LPATHS) $(OBJS) $(LNK_FLAGS) $(LIBS) -o $(TARGET)
+
+clean:
+	rm -f *.o
+	rm -f $(TARGET)
+
+.PHONEY: all clean

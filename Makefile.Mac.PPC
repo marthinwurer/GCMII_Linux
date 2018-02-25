@@ -1,0 +1,32 @@
+
+F77COMPILER= f77
+LINKER=      f77
+F77_FLAGS =   -c -s -f -g -O2
+LIBS = -lU77 -lV77 -L"$(ABSOFT)/lib" -lf90math -lfio -lf77math -lm
+TARGET=      modelII_ppc.exe
+
+SRCS = RANVAX.f \
+	setpath.f \
+	RFRCmacDBL.f \
+	UTILmacDBL.f \
+	Mjal2cpdC9.f \
+	Pjal0C9.f \
+	FORCINGSjalC9.f \
+	FFT36macDBL.f \
+	R83ZAmacDBL.f \
+	DB11pdC9.f \
+	README.f
+OBJS = $(SRCS:.f=.o)           # all objects
+
+%.o: %.f
+	$(F77COMPILER) -o $@ $(F77_FLAGS) $<
+
+$(TARGET): $(OBJS)
+	$(LINKER) $(LPATHS) $(OBJS) $(LNK_FLAGS) $(LIBS) -o $(TARGET)
+	cp $(TARGET) ../../../EdGCM/Applications/Model/
+
+clean:
+	rm -f *.o
+	rm -f $(TARGET)
+
+.PHONEY: all clean

@@ -1,0 +1,63 @@
+c  *********************************************************************
+c  *********************************************************************
+c  **
+c  ** Model IImac
+c  ** Based on GCMII code for IBM RS/6000 computers created at GISS
+c  ** Modified to compile under Absoft Pro Fortran 6.2 for MacOS.  
+c  ** Based on MP008macC9, BA94C9 and MA94DC9
+c  **
+c  ** CHANGE HISTORY:
+c  **
+c  ** 07/27/99 First Successful Compile! (DCH)
+c  ** 06/14/02 as original (MFS)
+c  **
+c  ** NOTES: 10/2002 Modernized by J.Lerner
+c  **
+c  *********************************************************************
+c  *********************************************************************
+
+C**** COMMON BLOCK (B35V)  FINE MODEL II DBLE.PREC. RS6000 10/29/91
+C**** TO CHANGE THE GRID, MODIFY THE NEXT LINE ONLY
+      PARAMETER (IM=36,JM=24,LM=9, KTD=6,KAIJ=80,KAJK=50)
+C**** IM,JM,LM LIMITED TO 72,46,36 RESPECTIVELY BY RADCOM & SIGmas
+      IMPLICIT REAL*8 (A-H,O-Z)
+      REAL*8 LHE,LHM,LHS,KAPA,LAT,lat_dg
+C**** THERE ARE 100 INTEGER PARAMETERS IN COMMON (JC-ARRAY)
+      COMMON /IPARMB/IM0,JM0,LM0,JMM1,LMM1,   LS1,LTM,LBLM,LMCM,LSSM,
+     *  KOCEAN,KDISK,KEYCT,KACC0,KCOPY,  IRAND,IJRA,MFILTR,NDYN,NCNDS,
+     *  NRAD,NSURF,NGRND,NFILTR,NDAA,   NDA5D,NDA5K,NDA5S,NDA4,NDASF,
+     *  MLAST,MDYN,MCNDS,MRAD,MSURF,    MDIAG,MELSE,MODRD,MODD5K,MODD5S,
+     *  IYEAR,IDAY,IDAY0,JYEAR,JYEAR0,  JDAY,JDATE,JDATE0,NSTEP,MRCH,
+     *  IDUM(4),NDZERO(13),NDPRNT(13),  IJD6(2,4),IDACC(12)
+C**** THERE ARE 161 REAL NUMBERS IN COMMON (RC-ARRAY)
+      COMMON /RPARMB/
+     *  TAU,TAU0,TOFDAY,TOFDY0,DT,      TAUP,TAUI,TAUE,TAUT,TAUO,
+     *  TWOPI,SDAY,LHE,LHM,LHS,         RADIUS,GRAV,RGAS,KAPA,OMEGA,
+     *  CCMCX,ETA,S0X,CO2,SRCOR,        PTOP,PSF,PSL,PTRUNC,AREAG,
+     *  XCDNST(2),XINT,DLAT,DLON,       SKIPSE,USESLP,USEP,USET,FIM,
+     *  RSDIST,SIND,COSD,DOPK,SIG(36),SIGE(37),RDM2(44)
+      CHARACTER*4 XLABEL,NAMD6,JMONTH,JMNTH0
+      COMMON /TEXT/ XLABEL(33),NAMD6(4),JMONTH,JMNTH0
+      COMMON /GEOMCB/ RAPVS(JM),RAPVN(JM),RAVPS(JM),RAVPN(JM),F(JM),
+     *  DXYP(JM),DXP(JM),DYP(JM),DXYS(JM),SINP(JM),LAT(JM),
+     *  DXYV(JM),DXV(JM),DYV(JM),DXYN(JM),COSP(JM),COSV(JM),lat_dg(jm,2)
+      COMMON /BNDYCB/ FDATA(IM,JM,3),ODATA(IM,JM,5),GDATA(IM,JM,14),
+     *  BLDATA(IM,JM,8),VDATA(IM,JM,10),
+     *  Z1O(IM,JM),Z12O(IM,JM)
+      COMMON /RADNCB/ RQT(IM,JM,3),SRHR(IM,JM,LM+1),TRHR(IM,JM,LM+1)
+      COMMON /LAYACB/ DSIG(37),DSIGO(36)
+      DIMENSION U(IM,JM,LM),V(IM,JM,LM),T(IM,JM,LM),P(IM,JM),Q(IM,JM,LM)
+C**** DIAGNOSTIC ARRAYS
+      PARAMETER (IMH=IM/2,     KACC=JM*80*3 + 24*80 +
+     *   JM*3 + JM*LM*54 + JM*3*4 + IM*JM*KAIJ +
+     *   IM*LM*16                      + 20*100 +
+     *   JM*36 + (IMH+1)*20*8 + 8*2 + 24*50*4 +
+     *   2*62*10*12 + JM*LM*KAJK + IM*JM*LM*6)
+      COMMON/ACCUM/AJ(JM,80),BJ(JM,80),CJ(JM,80),DJ(24,80),
+     *  APJ(JM,3),AJL(JM,LM,54),ASJL(JM,3,4),AIJ(IM,JM,KAIJ),
+     *  AIL(IM,LM,16),ENERGY(20,100),
+     *  CONSRV(JM,36),SPECA((IMH+1),20,8),ATPE(8,2),ADAILY(24,50,4),
+     *  WAVE(2,62,10,12),AJK(JM,LM,KAJK),AIJK(IM,JM,LM,6),
+     *  TSFREZ(IM,JM,2),TDIURN(IM,JM,KTD)
+      COMMON/REGION/JREG(IM,JM)
+      COMMON/KEYS/KEYNR(42,50),KDIAG(12)

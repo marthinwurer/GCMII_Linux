@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>modelII 8x10x9</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.edgcm.modelII</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>eGCM</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.7</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>CFBundleIconFile</key>
+	<string>modelII.icns</string>
+	<key>CFBundleShortVersionString</key>
+    <string>1.0.7 Model II</string>
+    <key>CFBundleLongVersionString</key>
+    <string>1.0.7, GISS GCM Model II (8x10 or 7.826x10, 9-layer)</string>
+    <key>NSApplescriptEnabled</key>
+    <string>No</string>
+</dict>
+</plist>
+ 
+

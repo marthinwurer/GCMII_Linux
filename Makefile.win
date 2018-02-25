@@ -1,0 +1,337 @@
+#
+#  Absoft Corporation Compiler Interface Makefile(v4.0.1).
+#
+#
+#  Type 'amake -f "makefile_win.amk"' in this directory at the DOS prompt
+#  to execute this makefile. Type 'amake -f "makefile_win.amk" clean' to
+#  remove old *.obj, *.exe, and *.res files.
+#
+#
+#  This file was created by Absoft Developer Tools Interface.
+#  File created on: Tue Oct 24 09:07:49 2006
+#
+#
+
+
+
+#
+#  Variables and flags for the compiler(s) and linker.
+#
+F95COMPILER= f95
+F77COMPILER= f77
+C_COMPILER=  acc
+CPPCOMPILER= acc
+LINKER=      lnk
+
+F95_FLAGS=   
+F77_FLAGS=   -O1 -c -N1 -s -N3 -f -N26 
+FF95_FLAG=   
+F_DEFINES=   
+C_FLAGS=     
+CPP_FLAGS=   -c++
+C_DEFINES=   
+C_UNDEFS=    
+
+
+
+DFLT_LNK_FLG=-IGNOREDUPS -aliases:UNICODE.ALS 
+USER_LNK_FLG=-warn 
+LNK_FLAGS=   $(DFLT_LNK_FLG) $(USER_LNK_FLG)
+
+BASENAME=    model
+#
+#  Name of the executable.
+#
+TARGET=      model.exe
+OUTDIR=      .
+OBJDIR=      .\objs
+
+#
+#  Files for this executable.
+#
+F95FILES=    
+MODFILES=    
+FFILES=      ".\Pjal0C9.f" ".\setpath.f" ".\RFRCmacDBL.f" ".\README.f"  \
+            ".\RANVAX.f" ".\R83ZAmacDBL.f" ".\UTILwinDBL.f"  \
+            ".\Mjal2cpdC9.f" ".\DB11pdC9.f" ".\FFT36macDBL.f"  \
+            ".\FORCINGSjalC9.f" 
+CFILES=      
+RCFILES=     
+RESFILES=    
+HFILES=      
+OBJS=        
+OTHERFILES=  
+MKFILE=      Makefile.win
+
+#
+#  Libraries for this executable.
+#
+USER_LIBS=   
+DFLT_LIBS=   unix.lib vms.lib absRT0.lib kernel32.lib fio.lib fmath.lib comdlg32.lib f90math.lib libac.lib 
+LIBS=        $(USER_LIBS) $(DFLT_LIBS)
+
+
+
+#
+#  Include directories specified for this executable.
+#
+INCS=        -I"." 
+LPATHS=      -path:"." 
+
+
+
+#
+#  Module flags, files and directories specified for this executable.
+#
+MOD_FLAGS=   
+MOD_INCS=    
+
+
+
+#  The following macro(s) and rule(s) are required for a full build
+#
+#  Rules and dependencies for the executable.
+#
+SRCFILES=    $(FFILES) $(F90FILES) $(CFILES) $(HFILES) $(RCFILES) $(RESFILES) $(OTHERFILES)
+RCRSFILES=   $(RESFILES) 
+
+OBJFILES=    $(OBJS) "$(OBJDIR)\Pjal0C9.obj" "$(OBJDIR)\setpath.obj"  \
+            "$(OBJDIR)\RFRCmacDBL.obj" "$(OBJDIR)\README.obj"  \
+            "$(OBJDIR)\RANVAX.obj" "$(OBJDIR)\R83ZAmacDBL.obj"  \
+            "$(OBJDIR)\UTILwinDBL.obj" "$(OBJDIR)\Mjal2cpdC9.obj"  \
+            "$(OBJDIR)\DB11pdC9.obj" "$(OBJDIR)\FFT36macDBL.obj"  \
+            "$(OBJDIR)\FORCINGSjalC9.obj" 
+
+#
+#  Optional macros, rules and dependencies included from prebuild file.
+#
+
+
+#
+#  Default dependency for this makefile
+#
+default: "$(OUTDIR)\$(TARGET)"
+
+all: "$(OUTDIR)\$(TARGET)"
+
+
+"$(OUTDIR)\$(TARGET)": "$(OUTDIR)" "$(OBJDIR)" "$(MKFILE)" $(OBJFILES) $(RCRSFILES)\
+	$(USER_LIBS) $(MODFILES)
+	$(LINKER) $(LPATHS) $(OBJFILES) $(LNK_FLAGS) $(RCRSFILES) $(LIBS) \
+		-out:"$(OUTDIR)\$(TARGET)"
+#
+#  Optional commands, macros, rules and dependencies from postbuild file.
+#
+#  To append additional commands to the default target dependency 
+#  begin the first line of the postbuild file with a tab.
+#
+
+
+.rc.res:
+	$(RC) -fo $@ $(RCFLAGS) $<
+
+
+"$(OBJDIR)" :
+	if not exist "$(OBJDIR)\nul" mkdir "$(OBJDIR)"
+
+
+"$(OUTDIR)" :
+
+
+qclean: clean_exe clean_misc clean_plugins
+	erase "$(OBJDIR)\*.mod"
+	erase "$(OBJDIR)\*.res"
+	erase "$(OBJDIR)\*.lib"
+	erase "$(OBJDIR)\*.obj"
+
+cleanProjFiles: clean
+
+clean: clean_f95 clean_f77 clean_acc clean_target
+
+clean_misc:
+	erase "$(OBJDIR)\*.amh"
+	erase "$(OBJDIR)\*.bif"
+	erase "$(OBJDIR)\*.int"
+	erase "$(OUTDIR)\*.amh"
+	erase "$(OUTDIR)\*.bif"
+	erase "$(OUTDIR)\*.int"
+	erase "$(OUTDIR)\*.mds"
+
+clean_f95: clean_f95src clean_f95mods
+
+clean_target: clean_misc clean_plugins clean_rsrc clean_exe
+
+clean_exe:
+	erase "$(OUTDIR)\$(TARGET)"
+
+clean_rsrc:
+
+clean_f95src:
+
+clean_f77:
+	erase "$(OBJDIR)\Pjal0C9.obj"
+	erase "$(OBJDIR)\setpath.obj"
+	erase "$(OBJDIR)\RFRCmacDBL.obj"
+	erase "$(OBJDIR)\README.obj"
+	erase "$(OBJDIR)\RANVAX.obj"
+	erase "$(OBJDIR)\R83ZAmacDBL.obj"
+	erase "$(OBJDIR)\UTILwinDBL.obj"
+	erase "$(OBJDIR)\Mjal2cpdC9.obj"
+	erase "$(OBJDIR)\DB11pdC9.obj"
+	erase "$(OBJDIR)\FFT36macDBL.obj"
+	erase "$(OBJDIR)\FORCINGSjalC9.obj"
+
+clean_acc:
+
+clean_plugins:
+
+clean_f95mods:
+
+
+PJAL0C9_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\Pjal0C9.obj": ".\Pjal0C9.f"
+	$(F77COMPILER) -o "$(OBJDIR)\Pjal0C9.obj" $(PJAL0C9_F_11)  ".\Pjal0C9.f"
+
+
+SETPATH_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\setpath.obj": ".\setpath.f"
+	$(F77COMPILER) -o "$(OBJDIR)\setpath.obj" $(SETPATH_F_11)  ".\setpath.f"
+
+
+RFRCMACDBL_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\RFRCmacDBL.obj": ".\RFRCmacDBL.f"
+	$(F77COMPILER) -o "$(OBJDIR)\RFRCmacDBL.obj" $(RFRCMACDBL_F_11)  ".\RFRCmacDBL.f"
+
+
+README_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\README.obj": ".\README.f"
+	$(F77COMPILER) -o "$(OBJDIR)\README.obj" $(README_F_11)  ".\README.f"
+
+
+RANVAX_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\RANVAX.obj": ".\RANVAX.f"
+	$(F77COMPILER) -o "$(OBJDIR)\RANVAX.obj" $(RANVAX_F_11)  ".\RANVAX.f"
+
+
+R83ZAMACDBL_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\R83ZAmacDBL.obj": ".\R83ZAmacDBL.f"
+	$(F77COMPILER) -o "$(OBJDIR)\R83ZAmacDBL.obj" $(R83ZAMACDBL_F_11)  ".\R83ZAmacDBL.f"
+
+
+UTILMACDBL_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\UTILwinDBL.obj": ".\UTILwinDBL.f"
+	$(F77COMPILER) -o "$(OBJDIR)\UTILwinDBL.obj" $(UTILMACDBL_F_11)  ".\UTILwinDBL.f"
+
+
+MJAL2CPDC9_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\Mjal2cpdC9.obj": ".\Mjal2cpdC9.f"
+	$(F77COMPILER) -o "$(OBJDIR)\Mjal2cpdC9.obj" $(MJAL2CPDC9_F_11)  ".\Mjal2cpdC9.f"
+
+
+DB11PDC9_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\DB11pdC9.obj": ".\DB11pdC9.f"
+	$(F77COMPILER) -o "$(OBJDIR)\DB11pdC9.obj" $(DB11PDC9_F_11)  ".\DB11pdC9.f"
+
+
+FFT36MACDBL_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\FFT36macDBL.obj": ".\FFT36macDBL.f"
+	$(F77COMPILER) -o "$(OBJDIR)\FFT36macDBL.obj" $(FFT36MACDBL_F_11)  ".\FFT36macDBL.f"
+
+
+FORCINGSJALC9_F_11 =  $(INCS) $(F77_FLAGS) $(F_DEFINES) 
+"$(OBJDIR)\FORCINGSjalC9.obj": ".\FORCINGSjalC9.f"
+	$(F77COMPILER) -o "$(OBJDIR)\FORCINGSjalC9.obj" $(FORCINGSJALC9_F_11)  ".\FORCINGSjalC9.f"
+
+
+#
+#  Define necessary macros for dependency scanning.
+#
+MKDEP=       makedepend
+MKDEP_FLAGS= -quiet "-pre$(OBJDIR)\\" -Y -modInfo -errdel 
+
+
+
+#
+#  Generate dependencies for the project.
+#
+#  Call this rule as necessary before building the
+#  main target of the project, in order to genereate
+#  a list of file dependencies.
+#
+
+ScanAll: "$(OUTDIR)" "$(OBJDIR)" MakeDepsAll
+
+
+
+#
+#  Scan for all fortran 77, fortran 90 and c/c++ dependencies
+#
+MakeDepsAll:
+	$(MKDEP) $(MKDEP_FLAGS) $(F77_FLAGS) $(FF90_FLAG) $(DEFINES) $(INCS) $(FFILES)
+	$(MKDEP) $(MKDEP_FLAGS) -a $(F90_FLAGS) $(INCS) $(F90FILES) $(MOD_FLAGS) $(MOD_INCS) $(MODFILES)
+	$(MKDEP) $(MKDEP_FLAGS) -a $(C_FLAGS) $(CPP_FLAGS) $(C_DEFINES) $(INCS) $(CFILES)
+
+
+
+
+#
+# Include any scanned dependencies for the generated makefile here.
+# The following project rules normally appear in "$(OBJDIR)\mkdep_$(BASENAME).amk"
+#
+# DO NOT DELETE THIS LINE - makedepend depends upon it.
+#
+#
+# This file created by Absoft Developer Tools Interface.
+
+".\objs\Pjal0C9.obj": "BA94jalC9.COM"
+".\objs\Pjal0C9.obj": "BA94jalC9.COM" "FORCINGSmac.COM"
+".\objs\Pjal0C9.obj": "BA94jalC9.COM"
+".\objs\Pjal0C9.obj": "BA94jalC9.COM"
+
+
+
+
+".\objs\RFRCmacDBL.obj": "B83XXDBL.COM" "B83XXDBL.COM"
+
+
+
+
+
+
+".\objs\R83ZAmacDBL.obj": "B83XXDBL.COM" "B83XXDBL.COM" "B83XXDBL.COM"
+".\objs\R83ZAmacDBL.obj": "B83XXDBL.COM" "B83XXDBL.COM" "B83XXDBL.COM"
+".\objs\R83ZAmacDBL.obj": "B83XXDBL.COM" "B83XXDBL.COM" "B83XXDBL.COM"
+".\objs\R83ZAmacDBL.obj": "B83XXDBL.COM" "B83XXDBL.COM" "B83XXDBL.COM"
+".\objs\R83ZAmacDBL.obj": "B83XXDBL.COM"
+
+
+
+
+".\objs\Mjal2cpdC9.obj": "BA94jalC9.COM" "FORCINGSMAC.COM" "BA94jalC9.COM"
+".\objs\Mjal2cpdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\Mjal2cpdC9.obj": "FORCINGSMAC.COM" "pd_COMMON" "BA94jalC9.COM"
+".\objs\Mjal2cpdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\Mjal2cpdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\Mjal2cpdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\Mjal2cpdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+
+
+".\objs\DB11pdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "pd_COMMON" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "pd_COMMON" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "pd_COMMON" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "pd_COMMON" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "pd_COMMON" "BA94jalC9.COM" "pd_COMMON"
+".\objs\DB11pdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "BA94jalC9.COM" "BA94jalC9.COM" "BA94jalC9.COM"
+".\objs\DB11pdC9.obj": "BA94jalC9.COM" "pd_COMMON"
+
+
+
+
+".\objs\FORCINGSjalC9.obj": "BA94jalC9.COM" "FORCINGSMAC.COM"
+".\objs\FORCINGSjalC9.obj": "FORCINGSMAC.COM" "BA94jalC9.COM"
+".\objs\FORCINGSjalC9.obj": "FORCINGSMAC.COM" "BA94jalC9.COM"
+".\objs\FORCINGSjalC9.obj": "FORCINGSMAC.COM"
+
+

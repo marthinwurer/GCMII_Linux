@@ -21,7 +21,7 @@ c  *********************************************************************
       FUNCTION RANDU (X)
       IMPLICIT REAL*8 (A-H,O-Z)
 c      REAL*4 ran
-      RANDU=ran_(IX)
+      RANDU=rand(IX)
 C**** THIS FUNCTION GENERATES RANDOM NUMBERS ON AN IBM 360 OR 370
 C  10 IY=IX*65539
 C     IF (IY) 20,40,30

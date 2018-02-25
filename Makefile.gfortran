@@ -5,7 +5,7 @@ F77_FLAGS =   -c -s -fconvert=big-endian -fno-automatic -ff2c -O2
 # ifort  -O2   -convert big_endian       -IPF_fma  -save  -zero  -ftz  -assume 
 # dummy_aliases  -align none -mp      -openmp   -c L23_DAILY_MClim_CH4mths.f  
 
-LIBS = -L/Developer/SDKs/MacOSX10.5.sdk/usr/lib
+LIBS = #-L/Developer/SDKs/MacOSX10.5.sdk/usr/lib
 TARGET=      model.command
 
 SRCS = RANVAX.f \

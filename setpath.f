@@ -26,10 +26,10 @@ c  *********************************************************************
       CHARACTER*255 ARGV         ! arg values (path)
       INTEGER*4 IERR             ! path error
 
-      ARGC = IARGC_()                         
+      ARGC = IARGC()                         
       IF (ARGC .GE. 1) THEN
-          CALL GETARG_(1,ARGV)    ! get path as arg
-          IERR = CHDIR_(ARGV)     ! change working directory
+          CALL GETARG(1,ARGV)    ! get path as arg
+          IERR = CHDIR(ARGV)     ! change working directory
       END IF
 
       END
